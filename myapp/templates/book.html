@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    *{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-image: url('https://c1.wallpaperflare.com/preview/705/693/119/subway-metro-speed-underground.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+#form{
+    background-color:whitesmoke;
+    height:400px;
+    width:800px;
+    margin: auto;
+    margin-top: 100px;
+    opacity:0.7;
+}
+#first-group{
+    border:none;
+    width:400px;
+    margin-top: 38px;
+    position: absolute;
+}
+#content{
+    border: 1px solid #161414;
+    margin:10px;
+    margin-left: 8px;
+    padding:5px;
+}
+#content #input-group{
+    border:none;
+    outline:none;
+    background: transparent;
+    margin-left:8px;
+    width:300px;
+    color:#1c1a1a;
+}
+::placeholder{
+    color:#242121;
+}
+.fa{
+    display:inline-block;
+    color:red;
+    border-right:1px solid #353131;
+    padding:8px;
+    margin-left: 8px;
+}
+#second-group{
+    border:none;
+    width:400px;
+    margin-top: 55px;
+    margin-left:400px;
+}
+#submit-btn{
+    margin-top: 30px;
+    margin-left: 600px;
+    background: transparent;
+    color:#0f0e0e;
+    width:150px;
+    border:1px solid red;
+    outline:none;
+    padding:8px;
+    font-size: 20px;
+}
+.alert alert-success{
+  text-align: center;
+}
+</style>
+<body>
+    <div class="container">
+        <form class="form-group" method="POST">
+            {% csrf_token %}
+            <div id="form">
+                <h1 class="text-black text-center">Book Now</h1>
+
+                <div id="first-group">
+
+                    <div id="content">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        <input type="text" name="From" id="input-group" placeholder="From">
+                    </div>
+
+                    <div id="content">
+                        <i class="fa fa-phone" aria-hidden="true"></i>
+                        <input type="number" name="Phonenumber" id="input-group" placeholder="Phonenumber">
+                    </div>
+
+                    <div id="content">
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                        <input type="text" name="DepartureDate" id="input-group" placeholder="Departure Date" onfocus="(this.type='date')" onblur="(this.type='text')" pattern="\d{4}-\d{2}-\d{2}" title="Please enter a date in the format YYYY-MM-DD">
+                    </div>
+
+                    
+                    <div id="content">
+                        <i class="fa fa-users" aria-hidden="true"></i>
+                        <input type="number" name="No.ofseats" id="input-group" placeholder="No.ofseats">
+                    </div>
+
+                </div>
+
+                <div id="second-group">
+
+                    <div id="content">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        <input type="text" name="To" id="input-group" placeholder="To">
+                    </div>
+
+                    <div id="content">
+                        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                        <input type="email" name="Email" id="input-group" placeholder="Email">
+                    </div>
+                    <div id="content">
+                        <i class="fa fa-users" aria-hidden="true"></i>
+                        <select name="Quotas" id="input-group">
+                            <option value="">Quotas</option>
+                            <option value="AC">AC</option>
+                            <option value="Non-AC">Non-AC</option>
+                            <option value="General">General</option>
+                            <option value="Sleeper">Sleeper</option>
+                        </select>
+                    </div>
+                    <div id="content">
+                        <i class="fa fa-train" aria-hidden="true"></i>
+                        <select name="Train_Number" id="input-group">
+                            <option value="" selected>Select Train Info</option>
+                            {% for info in train_info %}
+                                <option value="{{ info.2 }}">{{ info.0 }} - {{ info.1 }} - {{ info.2 }} - {{ info.3 }}</option>
+                           
+                            {% endfor %}
+                            
+                        </select>
+                       
+
+                        
+                    </div>
+                </div>
+
+                <button type="submit" value="Submit" id="submit-btn">Book Now</button>
+
+            </div>
+        </form>
+        {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    </div>
+
+    </body>
+    {% endblock %}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+     {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
+    <style>
+        body {
+            height: 100%;
+            margin: 0;
+            background-image: url("https://img.freepik.com/premium-photo/railway-station-train-city-night_1025342-48.jpg");
+            background-repeat: no-repeat;
+            background-size: cover; /* Set background size to cover the entire screen */
+            background-attachment: fixed; /* Optional: Fix the background while scrolling */
+}
+    
+        .log {
+            margin: 10% auto; /* Adjust the percentage to center vertically */
+            height: 300px;
+            width: 350px;
+            border-radius: 30px;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+}
+    
+        .sty
+        {
+            font-size:15px;
+            color:white;
+        }
+
+        .register-link {
+            margin-top: 20px; /* Add some top margin to separate from the form */
+            text-align: center; /* Align the text to the right */
+        }
+
+        .register-link a {
+            color:blue; /* Set the link color to white */
+        }
+
+
+    </style>
+</head>
+<body>
+   <center><h1  style="color: rgb(6, 6, 3);"><b>Login</b></h1></center>
+    <div class="log">
+        <br/>
+
+        <form action="" method="POST">
+            {% csrf_token %}
+          <center><span class="sty">Username:</span><br><input type="text" name="username" placeholder="Username"><br/>
+            <br><br>
+            <span class="sty">Password:</span><br><input type="password" name="password" placeholder="Password"><br/>
+            <br>
+            <button class="btn btn-success">login</button>
+
+        </form>
+        <br>
+        <br>
+        <div class="register-link">
+            <span style="color: whitesmoke;">No account?</span><a href="/register/">Register</a>
+        </div>
+
+    </div>
+    <div>
+            
+        {% for messages in messages %}
+           <center><h3 style="color: #f8f1ef;">{{messages}}</h3></cente>
+        {% endfor %}
+            
+    </div>
+</form>
+</body>
+
+</html>

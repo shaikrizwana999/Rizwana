@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Station Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://mcdn.wallpapersafari.com/medium/53/11/S5ukTY.jpg');
+            background-repeat: repeat;
+            background-size: cover;
+        }
+
+        h2 {
+            text-align: center;
+            color:white;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        form {
+            flex: 1;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        input {
+            width: calc(100% - 16px);
+            padding: 12px; /* Increase padding for top and bottom */
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            font-size: 16px; /* Increase font size */
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 50%;
+            margin: 0 auto 10px auto;
+            font-size: 15px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .stations {
+            flex: 1;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h3 {
+            text-align: center;
+            color: #333;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        p {
+            text-align: center;
+            color: #e44d26;
+        }
+        table {
+            margin: 0 auto; /* Center the table horizontally */
+            border-collapse: collapse; /* Add this to collapse the table borders */
+            width: 80%; /* Set the width to 80% of the container */
+            margin-top: 20px; /* Add top margin for spacing */
+            border: 2px solid #333; /* Set the border to 2px solid and color of your choice */
+
+        }
+
+        th, td {
+            padding: 12px; /* Add padding to table cells for spacing */
+            text-align: center; /* Center text within cells */
+            border: 1px solid #333; /* Set the border to 1px solid and color of your choice */
+            font-size: 15px; /* You can adjust the font size for better readability */
+        }
+
+
+      
+
+    </style>
+</head>
+<body>
+
+
+    <h2>Station Search</h2>
+
+    <div class="container">
+        <form method="POST" action="">
+            {% csrf_token %}
+            <label for="station_id">From:</label>
+            <input type="text" name="from" id="station_id">
+            <br>
+            <label for="station_name">Destination:</label>
+            <input type="text" name="to" id="station_name">
+            <br>
+            <button type="submit">Search</button>
+            <a href="{% url 'myapp:detail' %}" class="btn btn-success btn-hover">Back</a>
+
+        </form>
+
+       
+    </div>
+
+    {% if stations %}
+        <h3>Search Results:</h3>
+        <ul>
+            {% for station in stations %}
+                <li>
+                    <table border="1px">
+                        <tr>
+                            <th>Train name</th>
+                            <th>Train number</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Available Date</th>
+                            <th>Arrival time</th>
+                            <th>Departure time</th>
+                            <th>Duration</th>
+                            <th>Quotas</th>
+                            <th>Available number of seats</th>
+                            <th>Ticket price</th>
+                        </tr>
+                        <tr>
+                            <td> {{ station.Train_Name }} </td>
+                            <td>{{ station.Train_Number }}</td>
+                            <td>{{ station.From_Station }} </td>
+                            <td>{{station.Destination }}</td>
+                            <td>{{station.Date}}</td>
+                            <td>{{ station.Arrival_Time }}</td>
+                            <td>{{ station.Departure_Time }} </td>
+                            <td>{{ station.Duration }}</td>
+                            <td>{{ station.Quotas }}</td>
+                            <td>{{ station.Seats }}</td>
+                            <td> {{ station.Price }}</td>
+
+
+                        </tr>
+                    </table>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No trains found. Please check the station spellings.</p>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://mcdn.wallpapersafari.com/medium/1/15/e4duFO.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        h1 {
+            text-align: center;
+            font-family: sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .tick {
+            width: 100%;
+            font-size: 13px;
+            color: rgb(12, 12, 12);
+            padding: 18px;
+            padding-left: 40px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .tick button {
+            float: right;
+            border-radius: 5px;
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            
+        }
+
+        .tick button:hover {
+            background-color: #c0392b;
+        }
+        table {
+            margin: 0 auto; /* Center the table horizontally */
+            border-collapse: collapse; /* Add this to collapse the table borders */
+            width: 80%; /* Set the width to 80% of the container */
+            margin-top: 20px; /* Add top margin for spacing */
+            border: 2px solid #333; /* Set the border to 2px solid and color of your choice */
+
+        }
+
+        th, td {
+            padding: 12px; /* Add padding to table cells for spacing */
+            text-align: center; /* Center text within cells */
+            border: 1px solid #333; /* Set the border to 1px solid and color of your choice */
+            font-size: 15px; /* You can adjust the font size for better readability */
+        }
+        p{
+            text-align: center;
+            font-size: 17px;
+            margin-top: 50px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Current Reservations</h1>
+
+    <div class="container">
+        {% if bookings %}
+        {% for booking in bookings %}
+            <div class="tick">
+                <table border="1px">
+                    <tr>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Phone number</th>
+                        <th>Email</th>
+                        <th>Departure Date</th>
+                        <th>Number of Seats</th>
+                        <th>Quotas</th>
+                    </tr>
+                    <tr>
+                        <td>{{ booking.From }}</td>
+                        <td>{{ booking.To }}</td>
+                        <td>{{ booking.Phonenumber }}</td>
+                        <td>{{ booking.Email }}</td>
+                        <td>{{ booking.DepartureDate }}</td>
+                        <td>{{ booking.Noofseats }}</td>
+                        <td>{{ booking.Quotas }}</td>
+                    </tr>
+                </table>
+              
+                &nbsp;&nbsp;<form method="post" action="{% url 'myapp:cancel' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value="{{ booking.pk }}">
+                    <button type="submit">Cancel</button>
+                </form><br/>
+            </div>
+
+        {% endfor %}
+        {% else %}
+        <p>No Current bookings found.</p>
+    {% endif %}
+    </div>
+</body>
+</html>
